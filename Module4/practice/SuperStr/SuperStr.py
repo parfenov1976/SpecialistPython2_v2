@@ -10,7 +10,7 @@
 
 class SuperStr(str):
     def is_repeatance(self, s):
-        return len(self) % len(s) == 0
+        return len(self) / len(s) == self.count(s)
 
     def is_palindrome(self):
         return self == self[::-1]
