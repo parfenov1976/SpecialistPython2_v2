@@ -2,18 +2,19 @@
 # Снова перемешайте колоду и вытяните еще одну. Если вторая карта меньше первой, повторите “перемешать + вытянуть”,
 # до тех пор, пока не вытяните карту больше предыдущей карты.
 # В качестве результата выведи все вытягиваемые карты в консоль.
-from deck_total import Deck
+from deck_total import Card, Deck
 
 deck = Deck()
 deck.shuffle()
-card1 = deck.draw(1)[0]
-print(f'Вытянута карта {card1}')
+card1 = deck.draw(1)
+
+print(f'Вытянута карта {str(*card1)}')
 while True:
     deck.shuffle()
-    card2 = deck.draw(1)[0]
-    print(f'Вытянута карта {card2}')
+    card2 = deck.draw(1)
+    print(f'Вытянута карта {str(*card2)}')
     if card2 > card1:
-        print(f"Новая карта {card2} больше предыдущей карты {card1}")
+        print(f"Новая карта {str(*card2)} больше предыдущей карты {str(*card1)}")
         break
     else:
         card1 = card2
