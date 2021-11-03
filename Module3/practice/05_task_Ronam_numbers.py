@@ -1,8 +1,75 @@
 # Задание:
 # Напишите класс для работы с римскими цифрами.
 class Roman:
+    roman_digits = {1: 'I', 4: 'IV', 5: 'V', 9: 'IX', 10: 'X', 40: 'XL', 50: 'L', 90: 'XC', 100: 'C', 400: 'CD',
+                    500: 'D', 900: 'CM', 1000: 'M'}
+
     def __init__(self, number):
-        pass
+        self.dec_number = number
+
+    @property
+    def rom_number(self):
+        rom_numb = ''
+        dec_number = self.dec_number
+        for item in sorted(Roman.roman_digits, reverse=True):
+            digit = dec_number // item
+            dec_number %= item
+            rom_numb += Roman.roman_digits[item] * digit
+        return rom_numb
+
+    def __str__(self):
+        return self.rom_number
+
+    def __add__(self, other):
+        if isinstance(other, Roman):
+            return Roman(self.dec_number + other.dec_number)
+        else:
+            return Roman(self.dec_number + other)
+
+    def __radd__(self, other):
+        return Roman(self.dec_number + other)
+
+    def __mul__(self, other):
+        if isinstance(other, Roman):
+            return Roman(self.dec_number * other.dec_number)
+        else:
+            return Roman(self.dec_number * other)
+
+    def __rmul__(self, other):
+        return Roman(self.dec_number * other)
+
+    def __floordiv__(self, other):
+        if isinstance(other, Roman):
+            return Roman(self.dec_number // other.dec_number)
+        else:
+            return Roman(self.dec_number // other)
+
+    def __rfloordiv__(self, other):
+        return Roman(self.dec_number // other)
+
+    def __gt__(self, other):
+        if isinstance(other, Roman):
+            return self.dec_number > other.dec_number
+        else:
+            return self.dec_number > other
+
+    def __lt__(self, other):
+        if isinstance(other, Roman):
+            return self.dec_number < other.dec_number
+        else:
+            return self.dec_number < other
+
+    def __eq__(self, other):
+        if isinstance(other, Roman):
+            return self.dec_number == other.dec_number
+        else:
+            return self.dec_number == other
+
+    def __ne__(self, other):
+        if isinstance(other, Roman):
+            return self.dec_number != other.dec_number
+        else:
+            return self.dec_number != other
 
 
 # Реализуйте операции:
@@ -20,6 +87,16 @@ n3 = n1 + n2
 print(n3)  # XXIV
 n3 *= 2
 print(n3)  # XLVIII
+n3 //= 2
+print(n3)  # XXIV
+print(n3 > n2)
+print(n3 > 2)
+print(n3 < n2)
+print(n3 < 2)
+print(n3 == 2)
+print(n3 == n1 + n2)
+print(n3 != 2)
+print(n3 != n1 + n2)
 
 # ограничение: 4-значные числа.
 # Алгоритм
